@@ -8,26 +8,29 @@ var Stack = function() {
 };
 
 var stackMethods = {
+  length: function() {
+    return Object.keys(this.storage).length;
+  },
+  lastIndex: function() {
+    return Object.keys(this.storage)[this.length() - 1];
+  },
   push: function(value) {
-    var length = Object.keys(this.storage).length;
-    if (length === 0) {
+    if (this.length() === 0) {
       this.storage[0] = value;
-      return Object.keys(this.storage).length;
+      return this.length();
     }
-    var lastIndex = Object.keys(this.storage)[length - 1];
-    this.storage[lastIndex + 1] = value;
-    return length;
+    this.storage[this.lastIndex() + 1] = value;
+    return this.length();
   },
   pop: function() {
-    var length = Object.keys(this.storage).length;
-    if (length === 0) {
+    if (this.length() === 0) {
       return;
     }
-    var removedValue = this.storage[Object.keys(this.storage)[length - 1]].slice();
-    delete this.storage[Object.keys(this.storage)[length - 1]];
+    var removedValue = this.storage[this.lastIndex()].slice();
+    delete this.storage[this.lastIndex()];
     return removedValue;
   },
   size: function() {
-    return Object.keys(this.storage).length;
+    return this.length();
   }
 };
