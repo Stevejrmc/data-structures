@@ -8,22 +8,19 @@ var Stack = function() {
 };
 
 var stackMethods = {
-  length: function() {
-    return Object.keys(this.storage).length;
-  },
   lastIndex: function() {
-    return Object.keys(this.storage)[this.length() - 1];
+    return Object.keys(this.storage)[this.size() - 1];
   },
   push: function(value) {
-    if (this.length() === 0) {
+    if (this.size() === 0) {
       this.storage[0] = value;
-      return this.length();
+      return this.size();
     }
     this.storage[this.lastIndex() + 1] = value;
-    return this.length();
+    return this.size();
   },
   pop: function() {
-    if (this.length() === 0) {
+    if (this.size() === 0) {
       return;
     }
     var removedValue = this.storage[this.lastIndex()].slice();
@@ -31,6 +28,6 @@ var stackMethods = {
     return removedValue;
   },
   size: function() {
-    return this.length();
+    return Object.keys(this.storage).length;
   }
 };
