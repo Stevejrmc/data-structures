@@ -6,30 +6,26 @@ var Stack = function() {
 
   // Implement the methods below
   someInstance.push = function(value) {
-    // Get current length
-    var length = Object.keys(storage).length;
     // Index first element at zero
-    if (length === 0) {
+    if (someInstance.size() === 0) {
       storage[0] = value;
-      return length;
+      return someInstance.size();
     }
     // Get Index/key for last value added
-    var lastIndex = Object.keys(storage)[length - 1];
+    var lastIndex = Object.keys(storage)[someInstance.size() - 1];
     // Set Index/key of new value to one more than last
     storage[lastIndex + 1] = value;
-    return length;
+    return someInstance.size();
   };
 
   // remove last element
   someInstance.pop = function() {
     // If storage is empty, return/exit
-    if (!Object.keys(storage).length) {
+    if (!someInstance.size()) {
       return;
     }
-    // Get current length
-    var length = Object.keys(storage).length;
     // Get Index/key for last value added
-    var lastIndex = Object.keys(storage)[length - 1];
+    var lastIndex = Object.keys(storage)[someInstance.size() - 1];
     // Make copy of element to be removed
     var removedValue = storage[lastIndex].slice();
     delete storage[lastIndex];
