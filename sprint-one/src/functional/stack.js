@@ -3,7 +3,6 @@ var Stack = function() {
 
   // Use an object with numeric keys to store values
   var storage = {};
-  someInstance.storage = storage;
 
   // Implement the methods below
   someInstance.push = function(value) {
@@ -11,13 +10,13 @@ var Stack = function() {
     var length = Object.keys(storage).length;
     // Index first element at zero
     if (length === 0) {
-      someInstance.storage[0] = value;
+      storage[0] = value;
       return length;
     }
     // Get Index/key for last value added
     var lastIndex = Object.keys(storage)[length - 1];
     // Set Index/key of new value to one more than last
-    someInstance.storage[lastIndex + 1] = value;
+    storage[lastIndex + 1] = value;
     return length;
   };
 
@@ -32,8 +31,8 @@ var Stack = function() {
     // Get Index/key for last value added
     var lastIndex = Object.keys(storage)[length - 1];
     // Make copy of element to be removed
-    var removedValue = someInstance.storage[lastIndex].slice();
-    delete someInstance.storage[lastIndex];
+    var removedValue = storage[lastIndex].slice();
+    delete storage[lastIndex];
     return removedValue;
   };
 
