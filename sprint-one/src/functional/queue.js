@@ -14,7 +14,7 @@ var Queue = function() {
       return someInstance.size();
     }
     // Get Index/key for last value added
-    var lastIndex = Object.keys(storage)[someInstance.size() - 1];
+    var lastIndex = Number(Object.keys(storage)[someInstance.size() - 1]);
     // Set Index/key of new value to one more than last
     storage[lastIndex + 1] = value;
     return someInstance.size();
