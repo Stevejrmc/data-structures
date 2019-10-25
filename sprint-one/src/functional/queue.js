@@ -3,8 +3,7 @@ var Queue = function() {
 
   // Use an object with numeric keys to store values
   var storage = {};
-  // created on the instance called storage and set equal to storage object;
-  someInstance.storage = storage;
+
   // Implement the methods below
 
   // Add to queue
@@ -13,13 +12,13 @@ var Queue = function() {
     var length = Object.keys(storage).length;
     // Index first element at zero
     if (length === 0) {
-      someInstance.storage[0] = value;
+      storage[0] = value;
       return length;
     }
     // Get Index/key for last value added
     var lastIndex = Object.keys(storage)[length - 1];
     // Set Index/key of new value to one more than last
-    someInstance.storage[lastIndex + 1] = value;
+    storage[lastIndex + 1] = value;
     return length;
   };
 
