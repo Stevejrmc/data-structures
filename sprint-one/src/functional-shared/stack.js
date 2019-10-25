@@ -9,7 +9,7 @@ var Stack = function() {
 
 var stackMethods = {
   lastIndex: function() {
-    return Object.keys(this.storage)[this.size() - 1];
+    return Number(Object.keys(this.storage)[this.size() - 1]);
   },
   push: function(value) {
     if (this.size() === 0) {
