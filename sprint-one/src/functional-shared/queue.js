@@ -14,7 +14,7 @@ var queueMethods = {
       return this.size();
     }
     var lastIndex = Object.keys(this.storage)[this.size() - 1];
-    this.storage[lastIndex - 1] = value;
+    this.storage[Number(lastIndex) + 1] = value;
     return this.size();
   },
   dequeue: function() {
