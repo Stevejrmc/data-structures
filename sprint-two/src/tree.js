@@ -4,7 +4,8 @@ var Tree = function(value) {
 
   // your code here
 
-  // attach methods to treeInstance (extend)
+  // attach methods to treeInstance (extends)
+  _.extend(treeInstance, treeMethods);
 
   // An array containing a number of trees
   treeInstance.children = [];
@@ -18,34 +19,48 @@ var treeMethods = {};
 // and adds that node as a child of the tree
 treeMethods.addChild = function(value) {
   // Create a newNode (aka treeInstance)
-  //    Node:
-  //        1. Object:
-  //            A) value - any data type
-  //            B) list/Array - References to children
-
   // Set newNode/treeInstance value equal to valueArg
-
-  //    constraint:
-  //      1. no reference is duplicated - utilize treeMethod.contains
-  //         to confirm whether or not a value already exist on currentTree
-  //      2. none points to the root - no references to parentNodes
-  // if !contains (no reference exist, add node)
+  var newTree = Tree(value);
 
   // Add newNode/treeInstance as a child of the tree
+  this.children.push(newTree);
 };
 
 // Takes any input and returns a boolean reflecting
 // whether it can be found
 treeMethods.contains = function(target) {
-  // if treeInstance.value equal target
-  //    return true;
+  // helper functions:
 
-  // if treeInstance.children.length
-  //    loop through children
-  //        treeInstance.contains(treeInstance[i]);
+  // Check for children
+  var hasChildren = function(node) {
+    if (node.children.length) {
+      return true;
+    }
+    return false;
+  };
 
-  // not found
-  // return false;
+  // Compares node.value to target
+  var compareToTarget = function(node) {
+    // If node.value equals target return true
+    if (node.value === target) {
+      return true;
+    }
+
+    // If node has children
+    // compare children.value to target
+    if (hasChildren(node)) {
+      for (var i = 0; i < node.children.length; i++) {
+        if (compareToTarget(node.children[i])) {
+          return true;
+        }
+      }
+    }
+    // target not found
+    return false;
+  };
+
+  // return result of comparison
+  return compareToTarget(this);
 };
 
 
