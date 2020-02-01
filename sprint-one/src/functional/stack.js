@@ -12,6 +12,12 @@ var Stack = function() {
   };
 
   someInstance.pop = function() {
+    if (instanceSize > 0) {
+      instanceSize -= 1;
+      var removed = storage[instanceSize];
+      delete storage[instanceSize];
+      return removed;
+    }
   };
 
   someInstance.size = function() {
