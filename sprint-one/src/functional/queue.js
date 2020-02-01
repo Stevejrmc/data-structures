@@ -14,8 +14,10 @@ var Queue = function() {
       instanceSize -= 1;
       var removed = storage[0];
       delete storage[0];
-      for (var i = 0; i < instanceSize; i++) {
-        storage[i] = storage[i + 1];
+      if (instanceSize > 0) {
+        for (var i = 0; i < instanceSize; i++) {
+          storage[i] = storage[i + 1];
+        }
       }
       return removed;
     }
