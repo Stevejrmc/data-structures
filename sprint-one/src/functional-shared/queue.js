@@ -1,31 +1,35 @@
 var Queue = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
-  var newInstance = {};
-  newInstance.storage = {};
-  _.extend(newInstance, queueMethods);
-  return newInstance;
+  var someInstance = {};
+
+  someInstance.storage = {};
+  someInstance.instanceSize = 0;
+
+  someInstance.enqueue = queueMethods.enqueue;
+  someInstance.dequeue = queueMethods.dequeue;
+  someInstance.size = queueMethods.size;
+
+  return someInstance;
 };
 
 var queueMethods = {
   enqueue: function(value) {
-    if (this.size() === 0) {
-      this.storage[0] = value;
-      return this.size();
-    }
-    var lastIndex = Object.keys(this.storage)[this.size() - 1];
-    this.storage[Number(lastIndex) + 1] = value;
-    return this.size();
+    this.storage[this.instanceSize] = value;
+    this.instanceSize += 1;
   },
   dequeue: function() {
-    if (!this.size()) {
-      return;
+    if (this.instanceSize > 0) {
+      this.instanceSize -= 1;
+      var removed = this.storage[0];
+      delete this.storage[0];
+      if (this.instanceSize > 0) {
+        for (var i = 0; i < this.instanceSize; i++) {
+          this.storage[i] = this.storage[i + 1];
+        }
+      }
+      return removed;
     }
-    var removedValue = this.storage[Object.keys(this.storage)[0]].slice();
-    delete this.storage[Object.keys(this.storage)[0]];
-    return removedValue;
   },
   size: function() {
-    return Object.keys(this.storage).length;
+    return this.instanceSize;
   }
 };
