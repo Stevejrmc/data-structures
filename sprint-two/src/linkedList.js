@@ -4,81 +4,39 @@ var LinkedList = function() {
   list.tail = null;
 
   list.addToTail = function(value) {
-    // takes a value and adds it
-    // to the end of the list
-
-    // create a new node
-    var newNode = Node(value);
-
-    // if no currentTail (there is also no head)
-    //    set newNode to equal head & tail
-    //    return;
     if (!list.tail) {
-      list.head = newNode;
-      list.tail = newNode;
+      list.head = Node(value);
+      list.tail = list.head;
       return;
     }
-
-    // set currentTail next to newNode
-    // set tail to newNode
-    list.tail.next = newNode;
-    list.tail = newNode;
+    var oldTail = list.tail;
+    list.tail = Node(value);
+    oldTail.next = list.tail;
   };
 
   list.removeHead = function() {
-    // removes the first node from the list
-    // and returns it's value
-
-    // get currentHead && set equal to removedHead
-    var removedHead = list.head.value;
-    // set head equal to currentHead next
-    list.head = list.head.next;
-    // return removedHead
-    return removedHead;
+    if (list.head) {
+      var oldHead = list.head;
+      list.head = oldHead.next;
+      return oldHead.value;
+    }
   };
 
   list.contains = function(target) {
-    // returns a boolean reflecting whether
-    // or not a value is in the list
-
-    // if no head (nullHead === emptyList)
-    //    return false;
-    if (!list.head) {
-      return false;
-    }
-
-    // if head or tail === target
-    //    return true;
-    if (list.head.value === target || list.tail.value === target) {
-      return true;
-    }
-    // if list.head.next === null (head is also tail so exit)
-    //    return false
-    if (list.head.next === null) {
-      return false;
-    }
-
-    // Search middle of list:
-    var currNode = list.head.next;
-    // helper function:
-    var getNextNode = function() {
-      currNode = currNode.next;
+    var isFound = false;
+    var isTarget = function(node) {
+      if (node.value === target) {
+        isFound = true;
+      }
+      if (!isFound) {
+        if (node.next) {
+          return isTarget(node.next);
+        }
+      }
+      return isFound;
     };
 
-    // recursively search:
-    // while currNode.value !== list.tail
-    //    if currNode.value === target
-    //        return true;
-    //    getNextNode();
-    while (currNode !== list.tail) {
-      if (currNode.value === target) {
-        return true;
-      }
-      getNextNode();
-    }
-
-    // target not in list
-    return false;
+    return isTarget(list.head);
   };
 
   return list;
@@ -95,4 +53,7 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+   1. addToTail: O(1) / CONSTANT
+   2. removeHead: O(1) / CONSTANT
+   3. contains: O(n) / LINEAR
  */
