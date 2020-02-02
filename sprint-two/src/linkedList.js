@@ -23,6 +23,20 @@ var LinkedList = function() {
   };
 
   list.contains = function(target) {
+    var isFound = false;
+    var isTarget = function(node) {
+      if (node.value === target) {
+        isFound = true;
+      }
+      if (!isFound) {
+        if (node.next) {
+          return isTarget(node.next);
+        }
+      }
+      return isFound;
+    };
+
+    return isTarget(list.head);
   };
 
   return list;
