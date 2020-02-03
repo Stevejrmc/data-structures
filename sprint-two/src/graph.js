@@ -24,6 +24,10 @@ Graph.prototype.contains = function(node) {
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
+  if (this.edges.includes(node)) {
+    var index = this.edges.indexOf(node);
+    this.edges.splice(index, 1);
+  }
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
